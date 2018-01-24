@@ -1,6 +1,6 @@
 {
     "name": "pkj/sbanken",
-    "description": "PHP Wrapper for Skandiabanken (Norwegian bank) API.",
+    "description": "PHP Wrapper for Sbanken (Norwegian bank) API.",
     "type": "library",
     "license": "MIT",
     "authors": [
