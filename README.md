@@ -1,6 +1,6 @@
 # Sbanken PHP Client for PHP 7.1+
 
-See below for simple examples.
+A comprehensive PHP Client for Sbanken API. 
 
 Apis supported:
 
@@ -13,8 +13,13 @@ Apis supported:
 Install using composer.
 
 ```
-composer require pkj/sbanken
+composer require pkj/sbanken:^1.0
 ```
+
+# Usage
+
+See [examples/](https://github.com/peec/sbanken/tree/master/examples) folder in this repo.
+
 
 # Examples
 
