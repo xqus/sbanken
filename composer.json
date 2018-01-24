@@ -1,0 +1,21 @@
+{
+    "name": "pkj/sbanken",
+    "description": "PHP Wrapper for Skandiabanken (Norwegian bank) API.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Petter Kjelkenes",
+            "email": "kjelkenes@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pkj\\Sbanken\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
