@@ -8,8 +8,15 @@ Apis supported:
 - Transactions
 - Transfers
 
+# Install
 
-## Running the examples
+Install using composer.
+
+```
+composer require pkj/sbanken
+```
+
+# Examples
 
 Make sure you have PHP 7.1+. We do not support lower versions.
 
@@ -20,8 +27,9 @@ git clone git@github.com:peec/sbanken.git
 cd sbanken
 composer install
 cd examples
-
 ```
+
+Run the following commands to test. Note to change the environment variables (CLIENT_ID, CLIENT_SECRET, etc.).
 
 
 ### Listing bank accounts
