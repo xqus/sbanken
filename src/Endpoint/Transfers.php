@@ -9,22 +9,21 @@
 namespace Pkj\Sbanken\Endpoint;
 
 
+use Pkj\Sbanken\Request\TransferRequest;
+use Pkj\Sbanken\Values\Transaction;
+
 class Transfers
 {
     use HasClient;
 
-    const ENDPOINT_LIST = 'https://api.sbanken.no/bank/api/v1/Transfers/{customerId}/{accountNumber}';
+    const ENDPOINT_CREATE = 'https://api.sbanken.no/bank/api/v1/Transfers/{customerId}';
 
 
     public function createTransfer (TransferRequest $transfer) {
         $customArgs = [
-            'data' => $request ? $request->toRequestArray() : null
+            \GuzzleHttp\RequestOptions::JSON => $transfer->toRequestArray()
         ];
-        $endpoint = str_replace('{accountNumber}', $request->getAccountNumber(), self::ENDPOINT_LIST);
-        return $this->client->queryEndpointList('GET', $endpoint, Transaction::class, $customArgs);
+        return $this->client->queryEndpoint('POST', self::ENDPOINT_CREATE, $customArgs);
     }
-
-
-
 
 }

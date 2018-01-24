@@ -19,6 +19,23 @@ namespace Pkj\Sbanken\Values;
  */
 class Transaction extends ValueObject
 {
+    public function __construct(array $properties = array())
+    {
+
+        if ($properties['registrationDate'] !== null) {
+            $properties['registrationDate'] = new \DateTime($properties['registrationDate']);
+        }
+        if ($properties['accountingDate'] !== null) {
+            $properties['accountingDate'] = new \DateTime($properties['accountingDate']);
+        }
+        if ($properties['interestDate'] !== null) {
+            $properties['interestDate'] = new \DateTime($properties['interestDate']);
+        }
+
+
+        parent::__construct($properties);
+    }
+
     protected $transactionId;
 
     protected $customerId;

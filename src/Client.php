@@ -4,6 +4,7 @@ namespace Pkj\Sbanken;
 use GuzzleHttp\ClientInterface;
 use Pkj\Sbanken\Endpoint\Accounts;
 use Pkj\Sbanken\Endpoint\Transactions;
+use Pkj\Sbanken\Endpoint\Transfers;
 use Pkj\Sbanken\Exceptions\SbankenItemNotFoundException;
 
 /**
@@ -41,6 +42,11 @@ class Client
         return new Transactions($this);
     }
 
+    public function Transfers ()
+    {
+        return new Transfers($this);
+    }
+
     public function authorize ()
     {
         $client = $this->httpClient;
@@ -64,7 +70,7 @@ class Client
     }
 
 
-    private function queryEndpoint($method, $url, $customArgs = [])
+    public function queryEndpoint($method, $url, $customArgs = [])
     {
         $url = str_replace(['{customerId}'], [$this->credentials->getCustomerId()], $url);
 
@@ -74,8 +80,6 @@ class Client
                 'Accept'     => 'application/json'
             ]
         ], $customArgs ));
-
-        var_dump(\GuzzleHttp\json_decode($res->getBody()));
         $data = \GuzzleHttp\json_decode($res->getBody());
         return $data;
     }
