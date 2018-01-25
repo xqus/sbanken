@@ -20,7 +20,7 @@ class Transactions
 
 
     /**
-     * @return \Pkj\Sbanken\Values\Transaction[]
+     * @return \Pkj\Sbanken\Values\Transaction[]|\Pkj\Sbanken\Values\Collection
      */
     public function getList (TransactionListRequest $request) {
         $customArgs = [

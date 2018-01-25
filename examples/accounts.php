@@ -15,6 +15,8 @@ $client->authorize();
 
 $accounts = $client->Accounts()->getList();
 
+echo "There are total of {$accounts->getAvailableItems()} bank accounts!\n\n";
+
 foreach ($accounts as $account){
     echo "{$account->accountNumber}: {$account->balance}\n";
 }

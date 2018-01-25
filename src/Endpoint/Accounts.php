@@ -17,7 +17,7 @@ class Accounts
     const ENDPOINT_ITEM = 'https://api.sbanken.no/bank/api/v1/Accounts/{customerId}/{accountNumber}';
 
     /**
-     * @return \Pkj\Sbanken\Values\Account[]
+     * @return \Pkj\Sbanken\Values\Account[]|\Pkj\Sbanken\Values\Collection
      */
     public function getList () {
         return $this->client->queryEndpointList('GET', self::ENDPOINT_LIST, Account::class);
