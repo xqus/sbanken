@@ -6,6 +6,7 @@ use Pkj\Sbanken\Endpoint\Accounts;
 use Pkj\Sbanken\Endpoint\Transactions;
 use Pkj\Sbanken\Endpoint\Transfers;
 use Pkj\Sbanken\Exceptions\SbankenItemNotFoundException;
+use Pkj\Sbanken\Values\SbankenApiCredentials;
 use Pkj\Sbanken\Values\Collection;
 
 /**
@@ -25,9 +26,9 @@ class Client
     private $httpClient;
 
     /**
-     * @var string Sbanken access token
+     * @var SbankenApiCredentials Sbanken access token
      */
-    private $accessToken;
+    private $apiCredentials;
 
     /**
      * Sbanken token endpoint.
@@ -92,7 +93,7 @@ class Client
      * Note that you can also use setAccessToken, if you already have generated an access token.
      * As of now, we dont know how long an access token lives. So be careful with setAccessToken.
      *
-     * @return string The access token
+     * @return SbankenApiCredentials Sbanken Api Credentials containing the access token.
      */
     public function authorize ()
     {
@@ -112,17 +113,24 @@ class Client
         ]);
 
         $data = \GuzzleHttp\json_decode($res->getBody());
-        $this->accessToken = $data->access_token;
-        return $this->accessToken;
+        $expiresAt = (new \DateTime())->modify("+{$data->expires_in} seconds");
+        $this->apiCredentials = new SbankenApiCredentials([
+            'accessToken' => $data->access_token,
+            'expiresAt' => $expiresAt
+        ]);
+        return $this->apiCredentials;
     }
 
     /**
-     * Sets the access token manually, use if you already generated a access token and want to use the old one.
-     * @param $accessToken
+     * Set api credentials.
+     *
+     * @param SbankenApiCredentials $apiCredentials
+     * @return $this
      */
-    public function setAccessToken ($accessToken)
+    public function setApiCredentials (SbankenApiCredentials $apiCredentials)
     {
-        $this->accessToken = $accessToken;
+        $this->apiCredentials = $apiCredentials;
+        return $this;
     }
 
 
@@ -136,11 +144,19 @@ class Client
      */
     public function queryEndpoint($method, $url, $customArgs = [])
     {
+        if (!$this->apiCredentials) {
+            throw new \Exception("Tried to call sbanken apis without calling authorize() or setApiCredentials. Please grant access token before calling other endpoints.");
+        }
+
+        if ($this->apiCredentials->hasExpired()) {
+            throw new \Exception("Api credentials has expired. Please try again.");
+        }
+
         $url = str_replace(['{customerId}'], [$this->credentials->getCustomerId()], $url);
 
         $res = $this->httpClient->request($method, $url, array_merge([
             'headers' => [
-                'Authorization' => "Bearer {$this->accessToken}",
+                'Authorization' => "Bearer {$this->apiCredentials->accessToken}",
                 'Accept'     => 'application/json'
             ]
         ], $customArgs ));
