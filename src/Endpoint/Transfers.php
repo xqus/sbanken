@@ -16,7 +16,7 @@ class Transfers
 {
     use HasClient;
 
-    const ENDPOINT_CREATE = 'https://api.sbanken.no/bank/api/v1/Transfers/{customerId}';
+    const ENDPOINT_CREATE = '/bank/api/v1/Transfers/{customerId}';
 
 
     public function createTransfer (TransferRequest $transfer) {

@@ -16,7 +16,7 @@ class Transactions
 {
     use HasClient;
 
-    const ENDPOINT_LIST = 'https://api.sbanken.no/bank/api/v1/Transactions/{customerId}/{accountNumber}';
+    const ENDPOINT_LIST = '/bank/api/v1/Transactions/{customerId}/{accountNumber}';
 
 
     /**

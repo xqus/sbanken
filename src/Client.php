@@ -31,9 +31,9 @@ class Client
     private $apiCredentials;
 
     /**
-     * Sbanken token endpoint.
+     * Sbanken URL. Base for all URLs. Default to Sbanken production.
      */
-    const IDENTITY_SERVER_URL = 'https://api.sbanken.no/identityserver/connect/token';
+    private $serverUrl = 'https://api.sbanken.no';
 
     /**
      * Client constructor.
@@ -103,7 +103,7 @@ class Client
         $basicAuth = base64_encode("{$credentials->getClientId()}:{$credentials->getSecret()}");
         $accessToken = null;
 
-        $res = $client->request('POST', self::IDENTITY_SERVER_URL, [
+        $res = $client->request('POST', $this->serverUrl . '/identityserver/connect/token', [
             'form_params' => ['grant_type' => 'client_credentials'],
             'headers' => [
                 'Authorization' => "Basic $basicAuth",
@@ -133,6 +133,12 @@ class Client
         return $this;
     }
 
+    /**
+     * Change the API server to something different than Sbanken production (https://api.sbanken.no).
+     */
+    public function setApiServer ($url) {
+        $this->serverUrl = $url;
+    }
 
     /**
      * Utility for endpoints
@@ -152,6 +158,7 @@ class Client
             throw new \Exception("Api credentials has expired. Please try again.");
         }
 
+        $url = $this->serverUrl . $url;
         $url = str_replace(['{customerId}'], [$this->credentials->getCustomerId()], $url);
 
         $res = $this->httpClient->request($method, $url, array_merge([
