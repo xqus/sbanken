@@ -168,6 +168,16 @@ class Client
             ]
         ], $customArgs ));
         $data = \GuzzleHttp\json_decode($res->getBody());
+        if (isset($data->isError) && $data->isError) {
+            throw new \Exception("Sbanken API returned error"
+                . " (response code " . $res->getStatusCode() . " " . $res->getReasonPhrase() . ")."
+                . " Please see attached JSON and headers.\n\n"
+                . "JSON RESPONSE:\n"
+                . json_encode($data, JSON_PRETTY_PRINT) . "\n\n"
+                . "HEADERS:\n"
+                . json_encode($res->getHeaders(), JSON_PRETTY_PRINT)
+            );
+        }
         return $data;
     }
 
