@@ -4,6 +4,7 @@ namespace Pkj\Sbanken;
 use GuzzleHttp\ClientInterface;
 use Pkj\Sbanken\Endpoint\Accounts;
 use Pkj\Sbanken\Endpoint\Transactions;
+use Pkj\Sbanken\Endpoint\TransactionsV2;
 use Pkj\Sbanken\Endpoint\Transfers;
 use Pkj\Sbanken\Exceptions\SbankenItemNotFoundException;
 use Pkj\Sbanken\Values\SbankenApiCredentials;
@@ -75,6 +76,16 @@ class Client
     public function Transactions ()
     {
         return new Transactions($this);
+    }
+
+    /**
+     * Use to deal with transactions in API version 2.
+     *
+     * @return TransactionsV2
+     */
+    public function TransactionsV2 ()
+    {
+        return new TransactionsV2($this);
     }
 
     /**
