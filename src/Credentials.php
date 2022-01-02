@@ -41,7 +41,7 @@ final class Credentials
      */
     public function getClientId()
     {
-        return $this->clientId;
+        return urlencode($this->clientId);
     }
 
     /**
@@ -49,7 +49,7 @@ final class Credentials
      */
     public function getSecret()
     {
-        return $this->secret;
+        return urlencode($this->secret);
     }
 
     /**
