@@ -206,11 +206,11 @@ class Client
     {
         $data = $this->queryEndpoint($method, $url, $customArgs);
         $result = [];
+        dd($data->items);
         foreach ($data->items as $item) {
             $result[] =  new $valueClass((array)$item);
         }
-        print_r($result);
-        //return new Collection((int)$data->availableItems, $result);
+        return new Collection((int)$data->availableItems, $result);
     }
 
     /**
