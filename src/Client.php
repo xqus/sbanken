@@ -114,7 +114,7 @@ class Client
         $basicAuth = base64_encode("{$credentials->getClientId()}:{$credentials->getSecret()}");
         $accessToken = null;
 
-        $res = $client->request('POST', 'https://auth.sbanken.no/identityserver', [
+        $res = $client->request('POST', 'https://auth.sbanken.no/identityserver/connect/token', [
             'form_params' => ['grant_type' => 'client_credentials'],
             'headers' => [
                 'Authorization' => "Basic $basicAuth",
