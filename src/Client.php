@@ -34,7 +34,7 @@ class Client
     /**
      * Sbanken URL. Base for all URLs. Default to Sbanken production.
      */
-    private $serverUrl = 'https://api.sbanken.no';
+    private $serverUrl = 'https://publicapi.sbanken.no/apibeta';
 
     /**
      * Client constructor.
@@ -114,7 +114,7 @@ class Client
         $basicAuth = base64_encode("{$credentials->getClientId()}:{$credentials->getSecret()}");
         $accessToken = null;
 
-        $res = $client->request('POST', $this->serverUrl . '/identityserver/connect/token', [
+        $res = $client->request('POST', 'https://auth.sbanken.no/identityserver', [
             'form_params' => ['grant_type' => 'client_credentials'],
             'headers' => [
                 'Authorization' => "Basic $basicAuth",
