@@ -13,8 +13,8 @@ class Accounts
 {
     use HasClient;
 
-    const ENDPOINT_LIST = '/bank/api/v1/Accounts/{customerId}';
-    const ENDPOINT_ITEM = '/bank/api/v1/Accounts/{customerId}/{accountNumber}';
+    const ENDPOINT_LIST = '/api/v1/Accounts/{customerId}';
+    const ENDPOINT_ITEM = '/api/v1/Accounts/{customerId}/{accountNumber}';
 
     /**
      * @return \Pkj\Sbanken\Values\Account[]|\Pkj\Sbanken\Values\Collection
