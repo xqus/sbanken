@@ -16,6 +16,6 @@
     },
     "require": {
         "php": ">=7.1",
-        "guzzlehttp/guzzle": "^7.0.1"
+        "guzzlehttp/guzzle": "dev-bugfix"
     }
 }
