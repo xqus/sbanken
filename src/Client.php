@@ -209,7 +209,8 @@ class Client
         foreach ($data->items as $item) {
             $result[] =  new $valueClass((array)$item);
         }
-        return new Collection((int)$data->availableItems, $result);
+        print_r($result);
+        //return new Collection((int)$data->availableItems, $result);
     }
 
     /**
